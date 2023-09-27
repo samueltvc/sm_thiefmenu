@@ -1,5 +1,4 @@
 fx_version 'adamant'
-author 'samueltv_'
 lua54 'yes'
 game 'gta5'
 
