@@ -1,5 +1,7 @@
 ESX = exports["es_extended"]:getSharedObject()
 
+-- This code is taken from https://github.com/Mexalucard0/fivem-thiefmenu -- 
+
 lib.callback.register('sm_rpmenu:handcuff', function()
 	local xPlayer = ESX.GetPlayerFromId(source)
 	TriggerClientEvent('sm_rpmenu:handcuff', target)
@@ -32,7 +34,10 @@ lib.callback.register('sm_rpmenu:requestrelease', function()
 	TriggerClientEvent('sm_rpmenu:douncuffing', _source)
 end)
 
+-- MINE --
 lib.callback.register('sm_rpmenu:getinfo', function()
 	local xPlayer = ESX.GetPlayerFromId(source)
-	TriggerClientEvent('ox_lib:notify', -1, {position = 'top', description = '\nName: '..xPlayer.name..'            \nDate Of Birth: '..xPlayer.variables.dateofbirth..''})
+	TriggerClientEvent("ox_lib:notify", source, {
+		description = '\nName: '..xPlayer.name..'            \nDate Of Birth: '..xPlayer.variables.dateofbirth..''
+	})
 end)
