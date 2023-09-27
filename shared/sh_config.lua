@@ -1,7 +1,7 @@
 
 Config = {}
 
-Config.Inventory = "ox" -- Inventory (ox, qs, mf, cheeza)
+Config.Inventory = "ox" -- Inventory (ox, qs)
 
 Config.Hotkey = 'F7'
 Config.Command = 'rpmenu'
