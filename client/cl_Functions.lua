@@ -1,5 +1,6 @@
-----------------------------------------------------------------------------------------------------------------------
 ESX = exports["es_extended"]:getSharedObject()
+
+-- This code is taken from https://github.com/Mexalucard0/fivem-thiefmenu --
 
 RegisterNetEvent('sm_rpmenu:getarrested')
 AddEventHandler('sm_rpmenu:getarrested', function(playerheading, playercoords, playerlocation)
@@ -159,21 +160,10 @@ AddEventHandler('sm_rpmenu:OutVehicle', function()
 	local vehicle = GetVehiclePedIsIn(playerPed, false)
 	TaskLeaveVehicle(playerPed, vehicle, 16)
 end)
-----------------------------------------------------------------------------------------------------------------------
-
-canOpenTarget = function(ped)
-	return IsPedFatallyInjured(ped)
-    or IsPedDeadOrDying(ped)
-	or IsEntityPlayingAnim(ped, 'dead', 'dead_a', 3)
-	or IsPedCuffed(ped)
-	or IsEntityPlayingAnim(ped, 'mp_arresting', 'idle', 3)
-	or IsEntityPlayingAnim(ped, 'missminuteman_1ig_2', 'handsup_base', 3)
-	or IsEntityPlayingAnim(ped, 'missminuteman_1ig_2', 'handsup_enter', 3)
-	or IsEntityPlayingAnim(ped, 'random@mugging3', 'handsup_standing_base', 3)
-end
 
 searchPlayer = function(player)
     if Config.Inventory == 'ox' then
+		-- https://github.com/nwvh/wx_steal --
 		lib.progressCircle({
 			duration = 2500,
 			label = "Searching Person...",
@@ -194,16 +184,6 @@ searchPlayer = function(player)
 			exports.ox_inventory:openNearbyInventory()
     elseif Config.Inventory == 'qs' then
         TriggerServerEvent("inventory:server:OpenInventory", "otherplayer", GetPlayerServerId(player))
-    elseif Config.Inventory == 'mf' then
-        local serverId = GetPlayerServerId(player)
-        ESX.TriggerServerCallback("esx:getOtherPlayerData",function(data) 
-            if type(data) ~= "table" or not data.identifier then
-                return
-            end
-            exports["mf-inventory"]:openOtherInventory(data.identifier)
-        end, serverId)
-    elseif Config.Inventory == 'cheeza' then
-        TriggerEvent("inventory:openPlayerInventory", GetPlayerServerId(player), true)
     elseif Config.Inventory == 'custom' then
         -- INSERT CUSTOM SEARCH PLAYER FOR YOUR INVENTORY --
     end
@@ -211,7 +191,6 @@ end
 
 exports('searchPlayer', searchPlayer)
 
-----------------------------------------------------------------------------------------------------------------------
 
 AddEventHandler('sm_rpmenu:openperson', function(society)
 	OpenPersonRP()
@@ -284,4 +263,3 @@ function CuffPerson()
     lib.callback('sm_rpmenu:requestarrest', target_id, playerheading, playerCoords, playerlocation)
   end
 end
-----------------------------------------------------------------------------------------------------------------------
